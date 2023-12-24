@@ -1,65 +1,47 @@
-# Code Review for GitHub
+Certainly, I'll provide a detailed explanation of how your program works.
 
-## Overview:
-This program serves as a binary converter, allowing users to convert between decimal numbers and binary representations. The code is well-organized, and it employs functions for each conversion task. However, there are areas where improvements can be made. Below is a detailed review along with suggested modifications.
+### Overall Program Structure:
 
-### Code Structure and Organization:
-The overall structure is clear, with distinct functions for converting numbers to binary (`number_to_binary`) and binary to numbers (`binary_to_number`). However, the main function could benefit from further modularization. Consider breaking down the main logic into smaller functions for better maintainability.
+The program serves as a binary converter, allowing users to convert decimal numbers to binary representations and vice versa. The overall structure is as follows:
 
-#### Example:
-```c
-void displayMenu();
-int getUserOption();
-```
+1. The program starts by declaring and initializing global variables `n_b` and `b_n`, which store the decimal number to be converted to binary and the binary number to be converted to decimal, respectively.
 
-### User Input Handling:
-The program prompts the user for input, but there's a lack of input validation. It's important to ensure that the entered option is valid (1 or 2) and handle incorrect input gracefully.
+2. The `main` function displays a menu to the user, allowing them to choose between converting a decimal number to binary (`Number to binary`) or a binary number to decimal (`Binary to number`).
 
-#### Example:
-```c
-int getUserOption() {
-    int option;
-    while (1) {
-        printf("Enter an option (1 or 2): ");
-        if (scanf("%d", &option) == 1 && (option == 1 || option == 2)) {
-            break;
-        } else {
-            printf("Invalid input. Please enter 1 or 2.\n");
-            // Clear input buffer in case of non-integer input
-            while (getchar() != '\n');
-        }
-    }
-    return option;
-}
-```
+3. Depending on the user's choice, the program calls the appropriate function (`number_to_binary` or `binary_to_number`) to perform the conversion.
 
-### Console Clearing:
-The code uses an escape sequence (`\033[H\033[J`) to clear the console. While this works on many systems, it might not be universally supported. Consider using system-specific methods or libraries for better compatibility.
+### Conversion of Decimal to Binary (`number_to_binary`):
 
-### Function Documentation:
-Add comments or documentation to explain the purpose and usage of each function. This enhances code readability and helps others understand your code.
+1. The user enters a decimal number (`n_b`) to be converted to binary.
 
-#### Example:
-```c
-/**
- * @brief Converts a decimal number to its binary representation.
- */
-void number_to_binary() {
-    // ...
-}
-```
+2. The function uses a `for` loop to iterate over each binary place value in the binary representation of the number.
 
-### Magic Numbers:
-The code contains magic numbers (e.g., 10 in `b_n % 10`). Consider using named constants or enumerations to make the code more readable and maintainable.
+    a. At each iteration, it calculates the largest power of 2 (`binary_basic_two`) that is less than or equal to the remaining number (`n_b`).
+    
+    b. If this power of 2 can be subtracted from `n_b` without becoming negative, it means that this bit is present in the binary representation. In this case, the bit 1 is printed; otherwise, the bit 0 is printed.
 
-#### Example:
-```c
-#define BINARY_DIGIT 10
+3. The result is a binary representation of the entered decimal number.
 
-// ...
+### Conversion of Binary to Decimal (`binary_to_number`):
 
-int bit = b_n % BINARY_DIGIT;
-```
+1. The user enters a binary number (`b_n`) to be converted to decimal.
 
-## Conclusion:
-Your code is functional and accomplishes the intended task. By incorporating the suggested improvements, you can enhance its readability, maintainability, and user interaction. Feel free to customize the modifications based on your preferences and coding standards.
+2. The function uses a `while` loop to iterate over each digit of the binary number.
+
+    a. At each iteration, it retrieves the rightmost bit (`bit`) by taking the modulo 10.
+    
+    b. The bit is added to the sum (`number`) after being multiplied by the appropriate power of 2.
+
+    c. The binary number is then divided by 10 to move to the next bit, and the bit weight is incremented.
+
+3. The result is a successful conversion from binary to decimal.
+
+### Points of Attention:
+
+1. **Console Clearing:** The `\033[H\033[J` line is used to clear the console. It may not work on all systems. Alternative system-specific approaches may be considered.
+
+2. **Input Validation:** User input validation could be improved to handle scenarios where the user enters non-numeric characters or invalid options.
+
+3. **Magic Numbers:** The use of "magic" numbers (like 10 in `b_n % 10`) could be replaced with constants for better readability.
+
+In general, your program works correctly, and these detailed explanations should help in understanding its functionality.
