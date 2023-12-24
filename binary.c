@@ -4,47 +4,52 @@
 void number_to_binary();
 void binary_to_number();
 
-
 int n_b = 0;
 int b_n = 0;
+
 int main(void) {
+    int choice;
 
-    int n;
-    printf("Convertor binary\n");
-    printf("1- Number to binary\n");
-    printf("2-binary to number\n");
-    printf("Enter a option  : \n");
-    scanf("%d", &n);
-    printf("\033[H\033[J");  // Cette ligne efface le terminal (peut ne pas fonctionner sur tous les systèmes)
+    do {
+        printf("Converter binary\n");
+        printf("1- Number to binary\n");
+        printf("2- Binary to number\n");
+        printf("0- Exit\n");
+        printf("Enter an option: ");
+        scanf("%d", &choice);
 
+        switch (choice) {
+            case 1:
+                printf("Enter the number: ");
+                scanf("%d", &n_b);
+                number_to_binary();
+                break;
+            case 2:
+                printf("Enter the binary: ");
+                scanf("%d", &b_n);
+                binary_to_number();
+                break;
+            case 0:
+                printf("Exiting the program.\n");
+                break;
+            default:
+                printf("Invalid option. Please enter a valid option.\n");
+        }
 
-    if(n == 1)
-    {
-    
-      printf("Enter the number\n");
-      scanf("%d", &n_b);
-      printf("\033[H\033[J");  // Cette ligne efface le terminal (peut ne pas fonctionner sur tous les systèmes)
-      number_to_binary();
-    }
-    if(n == 2)
-    {
-    
-      printf("Enter the binary \n");
-      scanf("%d", &b_n);
-      printf("\033[H\033[J");  // Cette ligne efface le terminal (peut ne pas fonctionner sur tous les systèmes)
-      binary_to_number();
-    }
+        if (choice != 0) {
+            printf("\nPress Enter to continue...");
+            getchar(); // Consume the newline character
+            getchar(); // Wait for Enter key
+            printf("\033[H\033[J"); // Clear the terminal
+        }
+
+    } while (choice != 0);
 
     return 0;
 }
 
-
-
-void number_to_binary()
-{
-   //log2 vient nous donner le nombre d'iteration nessecaire pour arriver au nombre le plus proche de n_b mais plus petit que lui 
-   for (int i = log2(n_b); i >= 0; i--) {
-
+void number_to_binary() {
+    for (int i = log2(n_b); i >= 0; i--) {
         int binary_basic_two = pow(2, i);
 
         if (n_b >= binary_basic_two) {
@@ -57,20 +62,15 @@ void number_to_binary()
     printf("\n");
 }
 
-void binary_to_number()
-{
-    int j = 0; // Commencez avec le bit le moins significatif (j = 0)
+void binary_to_number() {
+    int j = 0;
     int number = 0;
 
     while (b_n > 0) {
-        int bit = b_n % 10; // Obtenez le bit de droite
-        number += bit * pow(2, j); // Ajoutez le bit à la somme
-
-        b_n /= 10; // Déplacez-vous vers le bit suivant
-        j++; // Augmentez le poids du bit
+        int bit = b_n % 10;
+        number += bit * pow(2, j);
+        b_n /= 10;
+        j++;
     }
-    printf("%d", number);
-
+    printf("%d\n", number);
 }
-
-
