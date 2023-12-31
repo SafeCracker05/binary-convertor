@@ -45,3 +45,53 @@ The program serves as a binary converter, allowing users to convert decimal numb
 3. **Magic Numbers:** The use of "magic" numbers (like 10 in `b_n % 10`) could be replaced with constants for better readability.
 
 In general, your program works correctly, and these detailed explanations should help in understanding its functionality.
+
+
+
+ChatGPT
+Certainly! Here's an explanation you can add to your GitHub for the decimalToHexadecimal function:
+
+c
+Copy code
+/**
+ * Converts a decimal number to its hexadecimal representation.
+ *
+ * @param decimalNumber The decimal number to be converted.
+ */
+void decimalToHexadecimal(int decimalNumber) {
+    int quotient;
+    int remainder;
+    int i = 1;
+    char hexadecimalNumber[100];
+
+    // Initialize quotient with the decimal number
+    quotient = decimalNumber;
+
+    // Perform the conversion using division and remainders
+    while (quotient != 0) {
+        remainder = quotient % 16;
+
+        // Convert the remainder to a hexadecimal character
+        if (remainder < 10)
+            hexadecimalNumber[i++] = remainder + '0';
+        else
+            hexadecimalNumber[i++] = remainder + 'A' - 10;
+
+        quotient = quotient / 16;
+    }
+
+    // Display the hexadecimal representation in reverse order
+    printf("The hexadecimal representation is: ");
+    for (int j = i - 1; j > 0; j--)
+        printf("%c", hexadecimalNumber[j]);
+
+    printf("\n");
+}
+Explanation:
+
+Parameters: The function takes a single parameter decimalNumber, representing the decimal number to be converted to hexadecimal.
+Initialization: Variables quotient and remainder are used to perform the division, and i is an index variable for storing hexadecimal digits in the hexadecimalNumber array.
+Conversion Loop: The while loop iterates as long as the quotient is not zero. At each iteration, it calculates the remainder when dividing by 16, which represents a hexadecimal digit.
+Hexadecimal Character Conversion: The if-else statement converts the remainder to a hexadecimal character. If the remainder is less than 10, it corresponds to the digits 0-9; otherwise, it corresponds to the letters A-F. The character is then stored in the hexadecimalNumber array.
+Displaying the Result: After the loop, the function displays the hexadecimal representation by iterating through the hexadecimalNumber array in reverse order.
+Note: This implementation assumes a non-negative decimal number input.
