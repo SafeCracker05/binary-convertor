@@ -49,7 +49,14 @@ int main(void) {
 }
 
 void number_to_binary() {
-    for (int i = log2(n_b); i >= 0; i--) {
+    int j = 0;
+    int i_b_t = 0;
+
+
+    for (int j = 0; pow(2, j) <= n_b; j++) {
+        i_b_t = j;
+    }
+    for (int i = i_b_t; i >= 0; i--) {
         int binary_basic_two = pow(2, i);
 
         if (n_b >= binary_basic_two) {
